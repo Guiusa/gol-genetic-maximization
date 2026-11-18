@@ -31,7 +31,7 @@ int main() {
     &indNum,
     &genNum,
     &rounds) ;
-
+  writeLogHeader(ROWS, COLUMNS, genNum) ;
   // Allocates the structures
   short ***indStart = (short ***) malloc(indNum * sizeof(short **)) ;
   short ***indExec = (short ***) malloc(indNum * sizeof(short **)) ;
@@ -88,6 +88,7 @@ int main() {
       if(finalAlives[0].alive > mostAlive)
         mostAlive = finalAlives[0].alive ;
     }
+
     printf("Generation %d results:\n", r) ;
     int summAlv = 0 ;
     for(int i = 0; i<indNum; i++){
@@ -97,6 +98,7 @@ int main() {
       ) ;
       summAlv += finalAlives[i].alive ;
     }
+    logBest(ROWS, COLUMNS, indStart[finalAlives[0].idx]) ;
     printf("Mean of total alives: %d\n", (int) summAlv/indNum) ;
     printf("##########################################\n\n") ;
   }

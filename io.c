@@ -1,5 +1,6 @@
 #include "io.h"
 #include <stdio.h>
+#include <string.h>
 
 #define BOX "██"
 
@@ -33,4 +34,25 @@ void printNumbGrid(short ROWS, short COLUMNS, short **grid){
     }
     printf("\n") ;
   }
+}
+
+void writeLogHeader(short ROWS, short COLUMNS, short goliter) {
+  char path[100] ;
+  strcpy(path, LOGDIR) ;
+  strcat(path, "banana") ;
+  FILE *ptr = fopen(path, "w") ;
+  fprintf(ptr, "%d %d %d\n", ROWS, COLUMNS, goliter) ;
+  fclose(ptr) ;
+}
+
+void logBest(short ROWS, short COLUMNS, short **grid) {
+  char path[100] ;
+  strcpy(path, LOGDIR) ;
+  strcat(path, "banana") ;
+  FILE *ptr = fopen(path, "a") ;
+  for (int i = 0; i<ROWS; i++)
+    for(int j = 0; j<COLUMNS; j++)
+      fprintf(ptr, " %d", grid[i][j]) ;
+  fprintf(ptr, "\n") ;
+  fclose(ptr) ;
 }
