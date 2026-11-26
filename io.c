@@ -56,3 +56,23 @@ void logBest(short ROWS, short COLUMNS, short **grid) {
   fprintf(ptr, "\n") ;
   fclose(ptr) ;
 }
+
+void writeGenDataLogHeader(int rounds) {
+  char path[100] ;
+  strcpy(path, LOGDIR) ;
+  strcat(path, GRAPHLOG) ;
+  FILE *ptr = fopen(path, "w") ;
+
+  fprintf(ptr, "%d\n", rounds) ;
+  fclose(ptr) ;
+}
+
+void logGenData(int best, int worst, int mean){
+  char path[100] ;
+  strcpy(path, LOGDIR) ;
+  strcat(path, GRAPHLOG) ;
+  FILE *ptr = fopen(path, "a") ;
+
+  fprintf(ptr, "%d %d %d\n", best, worst, mean) ;
+  fclose(ptr) ;
+}

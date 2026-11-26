@@ -53,10 +53,8 @@ int newGen(short ROWS, short COLUMNS, short **grid) {
   
   for(int i = 1; i<ROWS-1; i++)
     for(int j = 1; j<COLUMNS-1; j++) {
-      if(grid[i][j] & 2) {
-        grid[i][j] = 1;
-        alive ++ ;
-      } else grid[i][j] = 0 ;
+      grid[i][j] >>= 1;
+      alive += grid[i][j];
     }
   return alive ;
 }

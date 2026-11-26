@@ -9,6 +9,7 @@
 
 #define true 1
 #define CPYFACTOR 0.3
+#define MUTATEFACTOR 0.001
 
 int cmpResults(const void *a, const void *b) {
   results_t *ra = (results_t *) a ;
@@ -32,6 +33,7 @@ int main() {
     &genNum,
     &rounds) ;
   writeLogHeader(ROWS, COLUMNS, genNum) ;
+  writeGenDataLogHeader(rounds) ;
   // Allocates the structures
   short ***indStart = (short ***) malloc(indNum * sizeof(short **)) ;
   short ***indExec = (short ***) malloc(indNum * sizeof(short **)) ;
@@ -67,7 +69,7 @@ int main() {
               indStart[finalAlives[i2].idx],
               indSwap[bestIdx++]
             ) ;
-            mutateGrid(ROWS, COLUMNS, 0.001, indSwap[bestIdx-1]) ;
+            mutateGrid(ROWS, COLUMNS, MUTATEFACTOR, indSwap[bestIdx-1]) ;
             if (bestIdx == indNum) i1 = i2 = indNum ;
           }
         }
@@ -99,6 +101,8 @@ int main() {
       summAlv += finalAlives[i].alive ;
     }
     logBest(ROWS, COLUMNS, indStart[finalAlives[0].idx]) ;
+    
+    logGenData(finalAlives[0].alive, finalAlives[indNum-1].alive, (int) summAlv/indNum);
     printf("Mean of total alives: %d\n", (int) summAlv/indNum) ;
     printf("##########################################\n\n") ;
   }
